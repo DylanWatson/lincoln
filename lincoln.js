@@ -14,38 +14,24 @@ login({email: "abraham.lincoln.dev@gmail.com", password: "Cm1772pf!"}, function 
 
         if(event.type === "message")
         {
-          if(event.body === '/stop')
+          if(event.body === "Hi" || event.body === "hi")
           {
-            api.sendMessage("Goodbye...", event.threadID);
-            return stopListening();
+            api.sendMessage("Welcome to Lincoln, a API personal assistant by the people, for the people.\n\nType in one of the categories below to get started!\n\nMotivation", event.threadID);
           }
 
-          if(menuPresent === true)
+          if(event.body === "Motivation" || event.body === "motivation")
           {
-            if(event.body === '1')
+            var motivation = require('./motivation.js');
+            api.sendMessage(motivation.menu(), event.threadID);
+            var recieveInput = api.listen(function(err, event)
             {
-              api.sendMessage("You can do it!", event.threadID);
-              menuPresent = false;
-            }
+              if(motivation.choice(event.body) !== "exit")
+              {
+                api.sendMessage(motivation.choice(event.body), event.threadID);
+              }
+            });
           }
-
-          api.markAsRead(event.threadID, function(err)
-          {
-            if(err) console.log(err);
-          });
-
-          if(event.body === 'hi' || event.body === 'Hi' || event.body === "hi." || event.body === "Hi.")
-          {
-            api.sendMessage("Hi!  Welcome to Lincoln, a personal assistant by the people, for the people.\n\nHere are a few things you can do:\n\n1. Get encouragement.", event.threadID);
-            menuPresent = true;
-          }
-
           //api.sendMessage("TEST BOT: " + event.body, event.threadID);
-          console.log(event.body)
-        }
-          case "event":
-            console.log(event);
-            break;
         }
     });
 });
