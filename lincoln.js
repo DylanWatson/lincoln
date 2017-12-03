@@ -1,7 +1,7 @@
 // Simple echo bot. He'll repeat anything that you say.
 // Will stop when you say '/stop'
 var login = require("facebook-chat-api");
-login({email: "abraham.lincoln.dev@gmail.com", password: "Cm1772pf!"}, function callback (err, api) {
+login({email: "abraham.lincoln.dev@gmail.com", password: "***********"}, function callback (err, api) {
     if(err) return console.error(err);
     //console.log(api.getCurrentUserID());
     api.setOptions({listenEvents: false});
